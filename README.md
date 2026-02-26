@@ -1,110 +1,111 @@
-# 🚀 TaskFlow Pro
+# TaskFlow Pro - Full-Stack To-Do List Web App
 
-![React](https://img.shields.io/badge/React-18-blue)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-38B2AC)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
+Modern, responsive, production-ready task management app with authentication, MongoDB persistence, drag-and-drop, filters, search, priority, due dates, dark mode, and smooth animations.
 
-> A modern, responsive task management web application built with React and TailwindCSS.
+## Tech Stack
 
----
+- **Frontend:** React + Vite
+- **UI:** TailwindCSS + Lucide React + Framer Motion
+- **Backend:** Node.js + Express
+- **Database:** MongoDB + Mongoose
+- **Auth:** JWT (register/login)
 
-## ✨ Features
+## Folder Structure
 
-- ✅ Add, edit, delete tasks
-- ✅ Mark tasks as completed
-- ✅ Filter (All / Active / Completed)
-- ✅ Search tasks
-- ✅ Task priority (Low / Medium / High)
-- ✅ Due dates
-- ✅ Drag & drop reordering
-- ✅ Dark mode toggle
-- ✅ Local storage persistence
-- ✅ Responsive design (Mobile + Desktop)
-- ✅ Smooth animations
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend:** React (Vite)
-- **Styling:** TailwindCSS
-- **Icons:** Lucide React
-- **State Management:** React Hooks
-- **Animations:** Framer Motion
-- **Storage:** Local Storage
-
----
-
-## 📂 Folder Structure
-
-```
-taskflow-pro/
-│
-├── src/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── TodoForm.jsx
-│   │   ├── TodoItem.jsx
-│   │   ├── TodoList.jsx
-│   │   └── FilterBar.jsx
-│   │
-│   ├── App.jsx
-│   └── main.jsx
-│
-├── public/
+```bash
+productivity-hub/
+├── client/
+│   ├── index.html
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── vite.config.js
+│   └── src/
+│       ├── api.js
+│       ├── App.jsx
+│       ├── index.css
+│       ├── main.jsx
+│       └── components/
+│           ├── FilterBar.jsx
+│           ├── Header.jsx
+│           ├── TodoForm.jsx
+│           ├── TodoItem.jsx
+│           └── TodoList.jsx
+├── server/
+│   ├── .env.example
+│   ├── package.json
+│   └── src/
+│       ├── app.js
+│       ├── server.js
+│       ├── config/db.js
+│       ├── controllers/
+│       │   ├── authController.js
+│       │   └── todoController.js
+│       ├── middleware/
+│       │   ├── authMiddleware.js
+│       │   └── errorMiddleware.js
+│       ├── models/
+│       │   ├── Todo.js
+│       │   └── User.js
+│       ├── routes/
+│       │   ├── authRoutes.js
+│       │   └── todoRoutes.js
+│       └── utils/
+│           ├── catchAsync.js
+│           └── generateToken.js
 ├── package.json
 └── README.md
 ```
 
----
+## Installation & Run
 
-## 🚀 Installation
-
-1. Clone the repository
+1. **Install all dependencies**
 
 ```bash
-git clone https://github.com/yourusername/taskflow-pro.git
+npm run install:all
 ```
 
-2. Navigate into the project
+2. **Configure backend environment**
 
 ```bash
-cd taskflow-pro
+cp server/.env.example server/.env
 ```
 
-3. Install dependencies
+Update `server/.env` values (`MONGO_URI`, `JWT_SECRET`, etc).
+
+3. **Run backend**
 
 ```bash
-npm install
+npm run dev:server
 ```
 
-4. Start development server
+4. **Run frontend (new terminal)**
 
 ```bash
-npm run dev
+npm run dev:client
 ```
 
----
+- Frontend: `http://localhost:5173`
+- API: `http://localhost:5000/api`
 
-## 🎯 Future Improvements
+## REST API Endpoints
 
-- 🔐 User Authentication
-- ☁️ Backend Integration (Node + MongoDB)
-- 📊 Task Analytics Dashboard
-- 📅 Calendar View
-- 🧠 AI-powered Task Suggestions
+### Auth
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
----
+### Todos (JWT required)
+- `GET /api/todos`
+- `POST /api/todos`
+- `PUT /api/todos/:id`
+- `DELETE /api/todos/:id`
+- `DELETE /api/todos/completed/all`
+- `PATCH /api/todos/reorder`
 
-## 📜 License
+## Production Notes
 
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Ansh Tripathi**  
-BTech CSE (AI/ML) Student  
-Passionate about AI, Full-Stack Development & System Design 🚀
+- Set strict `CLIENT_URL` in backend env.
+- Use secure MongoDB connection string.
+- Use strong `JWT_SECRET`.
+- Build frontend with `npm run build --prefix client`.
+- Run backend with process manager (PM2, Docker, etc.).
