@@ -7,14 +7,33 @@ import errorMiddleware from './middleware/errorMiddleware.js';
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL }));
+/*
+  🔥 Proper CORS Configuration
+  - Allows frontend (5173) to communicate with backend (5000)
+  - Enables Authorization header for JWT
+  - Handles preflight requests correctly
+*/
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// Middleware
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/todos', todoRoutes);
 
+// Global error handler
 app.use(errorMiddleware);
 
 export default app;

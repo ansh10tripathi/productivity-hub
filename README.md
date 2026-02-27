@@ -1,100 +1,138 @@
-# TaskFlow Pro - Full-Stack To-Do List Web App
+# 🚀 TaskFlow Pro – Full-Stack Productivity SaaS
 
-Modern, responsive, production-ready task management app with authentication, MongoDB persistence, drag-and-drop, filters, search, priority, due dates, dark mode, and smooth animations.
+A modern, production-ready task management web application with secure authentication, cloud database integration, and full deployment to the internet.
 
-## Tech Stack
+🌐 **Live Application:**  
+Frontend → https://productivity-hub-blue.vercel.app  
+Backend API → https://productivity-hub-swj0.onrender.com  
 
-- **Frontend:** React + Vite
-- **UI:** TailwindCSS + Lucide React + Framer Motion
-- **Backend:** Node.js + Express
-- **Database:** MongoDB + Mongoose
-- **Auth:** JWT (register/login)
+---
 
-## Folder Structure
+## ✨ Key Features
 
-```bash
+- 🔐 Secure JWT Authentication (Register / Login)
+- ☁ MongoDB Atlas Cloud Database
+- 📝 Create, Edit, Delete Tasks
+- ✅ Mark Tasks as Complete
+- 🔍 Search & Filter (All / Active / Completed)
+- 🎯 Priority Levels (Low / Medium / High)
+- 📅 Due Date Support
+- 🌙 Dark Mode
+- 🔄 Drag & Drop Reordering
+- 🚀 Fully Deployed (Vercel + Render)
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- React (Vite)
+- TailwindCSS
+- Framer Motion
+- Axios
+- Lucide Icons
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- CORS Middleware
+- Custom Error Handling
+
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
+
+---
+
+## 📂 Project Structure
+
+```
 productivity-hub/
-├── client/
-│   ├── index.html
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── tailwind.config.js
-│   ├── vite.config.js
-│   └── src/
-│       ├── api.js
-│       ├── App.jsx
-│       ├── index.css
-│       ├── main.jsx
-│       └── components/
-│           ├── FilterBar.jsx
-│           ├── Header.jsx
-│           ├── TodoForm.jsx
-│           ├── TodoItem.jsx
-│           └── TodoList.jsx
-├── server/
-│   ├── .env.example
-│   ├── package.json
-│   └── src/
-│       ├── app.js
-│       ├── server.js
-│       ├── config/db.js
-│       ├── controllers/
-│       │   ├── authController.js
-│       │   └── todoController.js
-│       ├── middleware/
-│       │   ├── authMiddleware.js
-│       │   └── errorMiddleware.js
-│       ├── models/
-│       │   ├── Todo.js
-│       │   └── User.js
-│       ├── routes/
-│       │   ├── authRoutes.js
-│       │   └── todoRoutes.js
-│       └── utils/
-│           ├── catchAsync.js
-│           └── generateToken.js
-├── package.json
+│
+├── client/              # Frontend (React + Vite)
+│   ├── src/
+│   └── package.json
+│
+├── server/              # Backend (Express + MongoDB)
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── middleware/
+│   │   └── config/
+│   └── package.json
+│
 └── README.md
 ```
 
-## Installation & Run
+---
 
-1. **Install all dependencies**
+## 🔐 Authentication Flow
 
+1. User registers with email & password  
+2. Password securely hashed  
+3. JWT token generated  
+4. Token stored client-side  
+5. Protected routes validated via middleware  
+
+---
+
+## ⚙️ Environment Variables
+
+### Backend (.env)
+
+```
+PORT=10000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_secret_key
+CLIENT_URL=your_frontend_url
+```
+
+### Frontend (.env)
+
+```
+VITE_API_URL=your_backend_url/api
+```
+
+---
+
+## 🚀 Running Locally
+
+### Install Dependencies
 ```bash
 npm run install:all
 ```
 
-2. **Configure backend environment**
-
+### Configure Backend
 ```bash
 cp server/.env.example server/.env
 ```
 
-Update `server/.env` values (`MONGO_URI`, `JWT_SECRET`, etc).
+Update `.env` values.
 
-3. **Run backend**
-
+### Run Backend
 ```bash
 npm run dev:server
 ```
 
-4. **Run frontend (new terminal)**
-
+### Run Frontend (new terminal)
 ```bash
 npm run dev:client
 ```
 
-- Frontend: `http://localhost:5173`
-- API: `http://localhost:5000/api`
+---
 
-## REST API Endpoints
+## 📡 REST API Endpoints
 
-### Auth
+### Authentication
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 
-### Todos (JWT required)
+### Todos (Protected)
 - `GET /api/todos`
 - `POST /api/todos`
 - `PUT /api/todos/:id`
@@ -102,10 +140,28 @@ npm run dev:client
 - `DELETE /api/todos/completed/all`
 - `PATCH /api/todos/reorder`
 
-## Production Notes
+---
 
-- Set strict `CLIENT_URL` in backend env.
-- Use secure MongoDB connection string.
-- Use strong `JWT_SECRET`.
-- Build frontend with `npm run build --prefix client`.
-- Run backend with process manager (PM2, Docker, etc.).
+## 🧠 What This Project Demonstrates
+
+- Full-stack architecture design
+- Cloud database integration
+- JWT authentication implementation
+- Production deployment workflow
+- CORS configuration in real-world environment
+- Environment variable management
+- Debugging production issues
+
+---
+
+## 👨‍💻 Author
+
+**Ansh Tripathi**  
+BTech CSE (AI/ML)  
+Full-Stack & AI Enthusiast 🚀  
+
+---
+
+## 📌 License
+
+This project is licensed under the MIT License.
