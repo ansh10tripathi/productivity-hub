@@ -4,6 +4,7 @@ import Header from './components/Header';
 import TodoForm from './components/TodoForm';
 import FilterBar from './components/FilterBar';
 import TodoList from './components/TodoList';
+import Dashboard from "./components/Dashboard";
 
 const AuthView = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -141,19 +142,40 @@ const App = () => {
   if (!token || !user) return <AuthView onAuthSuccess={handleAuthSuccess} />;
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-6 text-slate-900 transition dark:bg-slate-950 dark:text-slate-100 md:px-8">
-      <div className="mx-auto max-w-4xl space-y-4">
-        <Header darkMode={darkMode} onToggleDarkMode={() => setDarkMode((v) => !v)} taskCount={activeCount} user={user} onLogout={handleLogout} />
-        <TodoForm onSubmit={createTodo} />
-        <FilterBar filter={filter} setFilter={setFilter} search={search} setSearch={setSearch} onClearCompleted={clearCompleted} />
-        <TodoList
-          todos={visibleTodos}
-          onDelete={deleteTodo}
-          onToggle={toggleTodo}
-          onUpdate={updateTodo}
-          onDragStart={setDraggedId}
-          onDrop={handleDrop}
+    <main className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 px-4 py-8 text-slate-900 transition dark:text-slate-100 md:px-8">
+      <div className="mx-auto max-w-6xl space-y-6">
+
+        <Header
+          darkMode={darkMode}
+          onToggleDarkMode={() => setDarkMode((v) => !v)}
+          taskCount={activeCount}
+          user={user}
+          onLogout={handleLogout}
         />
+
+        {/* 🔥 Dashboard Section */}
+        <Dashboard />
+
+        {/* Task Management Section */}
+        <div className="space-y-4">
+          <TodoForm onSubmit={createTodo} />
+          <FilterBar
+            filter={filter}
+            setFilter={setFilter}
+            search={search}
+            setSearch={setSearch}
+            onClearCompleted={clearCompleted}
+          />
+          <TodoList
+            todos={visibleTodos}
+            onDelete={deleteTodo}
+            onToggle={toggleTodo}
+            onUpdate={updateTodo}
+            onDragStart={setDraggedId}
+            onDrop={handleDrop}
+          />
+        </div>
+
       </div>
     </main>
   );
