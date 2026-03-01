@@ -25,15 +25,19 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchAnalytics = async () => {
-      try {
+        try {
         const res = await api.get("/todos/analytics");
         setData(res.data);
-      } catch (err) {
-        console.error(err);
-      }
+        } catch (err) {
+        console.error(
+            "Analytics fetch failed:",
+            err.response?.data
+        );
+        }
     };
+
     fetchAnalytics();
-  }, []);
+    }, []);
 
   if (!data)
     return (
