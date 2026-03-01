@@ -237,7 +237,7 @@ const App = () => {
         />
 
         {/* Dashboard only after token exists */}
-        {token && <Dashboard />}
+        {token && <Dashboard refreshKey={JSON.stringify(todos)} />}
 
         <TodoForm onSubmit={createTodo} />
 
