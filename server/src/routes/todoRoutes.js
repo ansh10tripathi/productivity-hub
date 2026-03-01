@@ -9,6 +9,7 @@ import {
 } from '../controllers/todoController.js';
 import authMiddleware from '../middleware/authMiddleware.js';
 import catchAsync from '../utils/catchAsync.js';
+import { getAnalytics } from "../controllers/todoController.js";
 
 const router = Router();
 
@@ -19,5 +20,5 @@ router.put('/:id', catchAsync(updateTodo));
 router.delete('/:id', catchAsync(deleteTodo));
 router.delete('/completed/all', catchAsync(clearCompleted));
 router.patch('/reorder', catchAsync(reorderTodos));
-
+router.get("/analytics", catchAsync(getAnalytics));
 export default router;

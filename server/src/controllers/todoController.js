@@ -43,3 +43,124 @@ export const reorderTodos = async (req, res) => {
   );
   res.status(204).send();
 };
+
+
+export const getAnalytics = async (req, res) => {
+  const userId = req.userId;
+  const todos = await Todo.find({ user: userId });
+
+  const total = todos.length;
+  const completed = todos.filter(t => t.completed).length;
+  const pending = total - completed;
+
+  const completionRate =
+    total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  /* =========================
+     PRIORITY DISTRIBUTION
+  ========================== */
+  const priorityStats = {
+    low: todos.filter(t => t.priority === "Low").length,
+    medium: todos.filter(t => t.priority === "Medium").length,
+    high: todos.filter(t => t.priority === "High").length,
+  };
+
+  /* =========================
+     DUE DATE STATS
+  ========================== */
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const dueStats = {
+    overdue: todos.filter(
+      t => t.dueDate && new Date(t.dueDate) < today && !t.completed
+    ).length,
+    upcoming: todos.filter(
+      t => t.dueDate && new Date(t.dueDate) >= today
+    ).length,
+  };
+
+  /* =========================
+     WEEKLY ACTIVITY (LAST 7 DAYS)
+  ========================== */
+  const last7Days = [];
+  for (let i = 6; i >= 0; i--) {
+    const day = new Date();
+    day.setDate(day.getDate() - i);
+    day.setHours(0, 0, 0, 0);
+
+    const nextDay = new Date(day);
+    nextDay.setDate(day.getDate() + 1);
+
+    const count = todos.filter(
+      t =>
+        new Date(t.createdAt) >= day &&
+        new Date(t.createdAt) < nextDay
+    ).length;
+
+    last7Days.push({
+      date: day.toLocaleDateString("en-US", { weekday: "short" }),
+      tasks: count,
+    });
+  }
+
+  /* =========================
+     PRODUCTIVITY SCORE
+     Formula:
+     50% completion rate
+     30% consistency (weekly avg)
+     20% streak
+  ========================== */
+
+  const weeklyTotal = last7Days.reduce((sum, d) => sum + d.tasks, 0);
+  const weeklyAverage = weeklyTotal / 7;
+
+  /* =========================
+     STREAK CALCULATION
+  ========================== */
+
+  let streak = 0;
+  for (let i = 0; i < 30; i++) {
+    const day = new Date();
+    day.setDate(day.getDate() - i);
+    day.setHours(0, 0, 0, 0);
+
+    const nextDay = new Date(day);
+    nextDay.setDate(day.getDate() + 1);
+
+    const completedToday = todos.some(
+      t =>
+        t.completed &&
+        t.updatedAt &&
+        new Date(t.updatedAt) >= day &&
+        new Date(t.updatedAt) < nextDay
+    );
+
+    if (completedToday) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+
+  const productivityScore = Math.min(
+    100,
+    Math.round(
+      completionRate * 0.5 +
+        Math.min(weeklyAverage * 10, 30) +
+        Math.min(streak * 5, 20)
+    )
+  );
+
+  res.json({
+    total,
+    completed,
+    pending,
+    completionRate,
+    priorityStats,
+    dueStats,
+    weeklyActivity: last7Days,
+    productivityScore,
+    streak,
+  });
+};
