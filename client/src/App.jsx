@@ -226,7 +226,7 @@ const App = () => {
     return <AuthView onAuthSuccess={handleAuthSuccess} />;
 
   return (
-    <main className="min-h-screen bg-slate-100 dark:bg-slate-950 px-4 py-8">
+    <main className="min-h-screen bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 dark:bg-slate-950 px-4 py-8">
       <div className="mx-auto max-w-6xl space-y-8">
         <Header
           darkMode={darkMode}
