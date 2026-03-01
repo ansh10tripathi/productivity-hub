@@ -74,7 +74,7 @@ const TodoItem = ({
           {editing ? (
             <div className="space-y-3">
               <input
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 dark:bg-slate-800"
+                className="w-full rounded-lg border border-slate-300 bg-white text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={draft.title}
                 onChange={(e) =>
                   setDraft((p) => ({ ...p, title: e.target.value }))
@@ -82,7 +82,7 @@ const TodoItem = ({
               />
               <textarea
                 rows={2}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 dark:bg-slate-800"
+                className="w-full rounded-lg border border-slate-300 bg-white text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={draft.description}
                 onChange={(e) =>
                   setDraft((p) => ({ ...p, description: e.target.value }))
@@ -91,14 +91,14 @@ const TodoItem = ({
               <div className="flex gap-2 flex-wrap">
                 <input
                   type="date"
-                  className="rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 dark:bg-slate-800"
+                  className="rounded-lg border border-slate-300 bg-white text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={draft.dueDate}
                   onChange={(e) =>
                     setDraft((p) => ({ ...p, dueDate: e.target.value }))
                   }
                 />
                 <select
-                  className="rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 dark:bg-slate-800"
+                  className="rounded-lg border border-slate-300 bg-white text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   value={draft.priority}
                   onChange={(e) =>
                     setDraft((p) => ({ ...p, priority: e.target.value }))

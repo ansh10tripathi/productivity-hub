@@ -33,7 +33,7 @@ const FilterBar = ({ filter, setFilter, search, setSearch, onClearCompleted }) =
 
       <button
         onClick={onClearCompleted}
-        className="rounded-xl bg-rose-100 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-200"
+        className="rounded-xl border border-slate-300 bg-white text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         Clear completed
       </button>
