@@ -5,6 +5,7 @@ import TodoForm from "./components/TodoForm";
 import FilterBar from "./components/FilterBar";
 import TodoList from "./components/TodoList";
 import Dashboard from "./components/Dashboard";
+import { GoogleLogin } from "@react-oauth/google";
 
 const AuthView = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -76,6 +77,21 @@ const AuthView = ({ onAuthSuccess }) => {
           ? "Don't have an account? Register"
           : "Already have an account? Login"}
       </button>
+      <GoogleLogin
+        onSuccess={async (credentialResponse) => {
+          try {
+            const res = await api.post("/auth/google", {
+              token: credentialResponse.credential,
+            });
+            onAuthSuccess(res.data);
+          } catch (err) {
+            setError(err.response?.data?.message || "Google login failed");
+          }
+        }}
+        onError={() => {
+          setError("Google login failed");
+        }}
+      />
     </main>
   );
 };
@@ -261,5 +277,7 @@ const App = () => {
     </main>
   );
 };
+
+
 
 export default App;
